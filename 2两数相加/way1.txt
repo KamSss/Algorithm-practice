@@ -5,9 +5,9 @@
  *     struct ListNode *next;
  * };
  */
-//#include <math.h>
 
-struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
+
+/*struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
     struct ListNode* l3 = NULL;
 	struct ListNode* c1 = l1;
 	struct ListNode* c2 = l2;
@@ -63,4 +63,49 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
 		}
 		return l3;
 	}
+}
+*/
+
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
+    //特殊情况处理
+    if(l1 == NULL){
+        return l2;
+    }
+    if(l2 ==NULL){
+        return l1;
+    }
+    
+    struct ListNode* l3 = (struct ListNode *)malloc(sizeof(struct ListNode));
+    struct ListNode* ret = l3;
+    struct ListNode* cur1 = l1;
+    struct ListNode* cur2 = l2;
+    int carry = 0;
+    
+    while(cur1 != NULL || cur2 != NULL){                    
+        int a=cur1?cur1->val:0;
+        int b=cur2?cur2->val:0;
+        int sum = a + b + carry;
+        
+        l3->val = sum%10;
+        carry = sum/10;
+        
+        cur1=cur1?cur1->next:NULL;
+        cur2=cur2?cur2->next:NULL;
+        
+        /*
+        if(cur1->next != NULL){
+        cur1 = cur1->next;
+        }
+        if(cur2->next != NULL){
+        cur2 = cur2->next;
+        }
+        */
+        
+    }
+    if(carry == 1){
+        l3 = l3->next;
+        l3->val = 1;
+        l3->next = NULL;
+    }
+    return ret;
 }
