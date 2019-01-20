@@ -1,10 +1,3 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
- */
 struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
     if(head == NULL){
         return NULL;
@@ -12,20 +5,28 @@ struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
     struct ListNode* cur1 = head;
     struct ListNode* cur2 = head;
     int a = n;
-    int sum = 0;
+    int sum = n;
     
     while(a--){
         cur2 = cur2->next;
-        sum++;
     }
     while(cur2 != NULL && cur2->next != NULL){
         cur1 = cur1->next;
         cur2 = cur2->next;
         sum++;
     }
-    if(sum == n){
+    //sum == n说明上面while循环直接退出了 但是要分情况 
+    //因为cur2 == NULL退出的 说明是头删（删除第一个）
+    if(sum == n && n != 1 && cur2 == NULL){
         head = head->next;
+        return head;
     }
+    //cur2->next == NULL是删除第二个结点
+    if(sum == n && n != 1 && cur2->next == NULL){
+        cur1->next = cur1->next->next;
+        return head;
+    }
+    //n == 1就是尾删
     if(n == 1){
         if(head->next == NULL){
             return NULL;
@@ -33,11 +34,6 @@ struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
         cur1->next = NULL;
         return head;
     }
-    if(cur1->next->next == NULL){
-        cur1->next = NULL;
-    }
-    else{
-        cur1->next = cur1->next->next;
-    }
+    cur1->next = cur1->next->next;
     return head;
 }
