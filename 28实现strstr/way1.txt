@@ -1,0 +1,29 @@
+int strStr(char* haystack, char* needle) {
+    const char* st1 = haystack;
+    const char* st2 = needle;
+    const char* st = st1;
+    int sum = 0;
+    
+    while(*st){
+        st = st1;
+        st2 = needle;
+        //让st1走到与st2相等的位置
+        while(*st1 != *st2){
+            st1++;
+            sum++;
+        }
+        //用st存下一次查找的开始位置
+        st = st1;
+        //判断是否完全相等
+        while(*st1 == *st2 && *st1 && *st2){
+            st1++;
+            st2++;
+        }
+        //若相等 返回sum
+        if(*st2 == '\0'){
+            return sum;
+        }
+    }
+    
+    return -1;
+}
