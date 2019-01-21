@@ -1,0 +1,25 @@
+int strStr(char* haystack, char* needle) {
+    if(*needle == '\0'){
+        return 0;
+    }
+    const char* st1 = haystack;
+    const char* st2 = needle;
+    const char* st = st1;
+    int sum = 0;
+    
+    while(*st){
+        st1 = st;
+        st2 = needle;
+        while(*st1 == *st2 && *st2){
+            st1++;
+            st2++;
+        }
+        if(*st2 == '\0'){
+            return sum;
+        }
+        st++;
+        sum++;
+    }
+    
+    return -1;
+}

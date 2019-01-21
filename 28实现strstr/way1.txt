@@ -1,3 +1,7 @@
+//这个思路我没做出来 下面是错误示范
+//1.让st1走到与st2相等的位置
+//2.用st记录此时st1位置 便于下次查找事件
+//3.对比st1与st2 若不相等继续循环
 int strStr(char* haystack, char* needle) {
     const char* st1 = haystack;
     const char* st2 = needle;
