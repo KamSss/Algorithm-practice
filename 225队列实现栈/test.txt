@@ -1,0 +1,44 @@
+class MyStack {
+public:
+    /** Initialize your data structure here. */
+    MyStack() {
+        
+    }
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        std::queue<int> temp_q;
+        temp_q.push(x);
+        
+        while(!_q.empty()){
+            temp_q.push(_q.front());
+            _q.pop();
+        }
+        
+        //如果临时队列为空 把数据搬入另一个
+        while(!temp_q.empty()){
+            _q.push(temp_q.front());
+            temp_q.pop();
+        }
+        
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        int temp = _q.front();
+        _q.pop();
+        return temp;
+    }
+    
+    /** Get the top element. */
+    int top() {
+        return _q.front();
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return _q.empty();
+    }
+private:
+    std::queue<int> _q;
+};
