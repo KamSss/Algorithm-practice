@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+        //如果长度不相等 直接返回false
+        if(pushV.size() != popV.size())
+            return false;
+        
+        size_t pushIndex = 0,popIndex = 0;
+        stack<int> st;
+        //循环结束条件：压入序列走到头
+        while(pushIndex < pushV.size()){
+            st.push(pushV[pushIndex++]);
+            
+            //循环结束条件：栈为空、栈顶元素不等于弹出序列当前元素
+            while(!st.empty() && st.top() == popV[popIndex]){
+                st.pop();
+                popIndex++;
+            }
+        }
+        
+        //如果弹出序列的index没有走完 则false 走完了就是true
+        if(popIndex == popV.size())
+            return true;
+        else
+            return false;
+    }
+};
