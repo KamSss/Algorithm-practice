@@ -1,0 +1,39 @@
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+    }
+    
+    void push(int x) {
+        _norm.push(x);
+        if(_min.empty()){
+            _min.push(x);
+        }
+        
+        if(_min.top() >= x){
+            _min.push(x);
+        }
+    }
+    
+    void pop() {
+        if(_min.empty() && !_norm.empty() && (_min.top() != _norm.top())){
+            _norm.pop();
+        }
+        else
+        {
+            _norm.pop();
+            _min.pop();
+        }
+    }
+    
+    int top() {
+        return _norm.top();
+    }
+    
+    int getMin() {
+        return _min.top();
+    }
+private:
+    std::stack<int> _norm;
+    std::stack<int> _min;
+};
