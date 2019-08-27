@@ -1,37 +1,29 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
- */
-struct ListNode* removeElements(struct ListNode* head, int val) {
-    if(head == NULL)
-        return NULL;
-    else{
-        struct ListNode* prev = head;
-        struct ListNode* cur = prev->next;
-        while(cur != NULL)
-        {
-            if(cur->val == val){
+//方法：
+//1.cur走前面，prev走后面
+//2.while（cur的val相等时，prev的next指向cur的next)
+//3.我们默认从第二个节点开始判断的，在最后判断一下头节点
+
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        if(head == NULL){
+            return NULL;
+        }
+        ListNode* cur = head->next;
+        ListNode* prev = head;
+        while(cur != NULL){
+            while(cur != NULL && cur->val == val){
                 prev->next = cur->next;
-                free(cur);
-                cur = prev->next;
-                }
-            else{
-                prev = cur;
                 cur = cur->next;
             }
+            prev = prev->next;
+            if(prev == NULL)
+                break;
+            cur = prev->next;
         }
-        
-        //特殊情况的考虑:如果第一个元素就是等于定值的情况
         if(head->val == val){
-            struct ListNode* newHead = head->next;
-            free(head);
-            return newHead;
+            return head->next;
         }
-        else{
-            return head;
-        }
+        return head;
     }
-}
+};
