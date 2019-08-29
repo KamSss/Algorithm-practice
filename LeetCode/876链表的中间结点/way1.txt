@@ -1,21 +1,17 @@
-struct ListNode* middleNode(struct ListNode* head) {
-    if(head == NULL)
-        return head;
-    //思路：双指针，一个指针走一步一个指针走两步，快指针走到NULL的时候，慢的在中间。
-    struct ListNode* slow = head;
-    struct ListNode* fast = head;
-        
-    while(fast != NULL && slow != NULL)
-    {
-        if(fast->next == NULL){
-            return slow;
+//拿一个互斥变量 t，当作慢指针是否走的条件，这样既保证了每次快指针走两步慢指针走一步，可以不用考虑快指针是否会走错。
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* fast = head;
+        ListNode* slow = head;
+        int t = 1;
+        while(fast->next != NULL){
+            fast = fast->next;
+            t = t ^ 1;
+            if(t == 0){
+                slow = slow->next;
+            }            
         }
-        fast = fast->next;
-        slow = slow->next;
-        if(fast->next == NULL){
-            return slow;
-        }
-        fast = fast->next;
+        return slow;
     }
-    return slow;
-}
+};
