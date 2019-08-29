@@ -1,0 +1,28 @@
+//一个先走n步，第二个再走，当第一个走到null的时候，第二个就是要删除的节点，创建一个临时指针保存要删除节点的前一个节点
+//单独处理头删
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(head == NULL){
+            return NULL;
+        }
+        ListNode* ret = head;
+        ListNode* cur = head;
+        ListNode* prev = head;
+        for(int i = 0;i < n;i++){
+            cur = cur->next;
+        }
+        //头删单独考虑
+        if(cur == NULL){
+            head = head->next;
+            return head;
+        }
+        while(cur != NULL){
+            prev = ret;
+            cur = cur->next;
+            ret = ret->next;
+        }
+        prev->next = ret->next;
+        return head;
+    }
+};
