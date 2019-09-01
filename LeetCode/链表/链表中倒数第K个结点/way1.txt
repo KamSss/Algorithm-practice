@@ -1,0 +1,29 @@
+//思路：先让一个结点走K步，再两个结点一起走，当前面那个走到NULL的时候，后面那个就是倒数第K个结点
+//细节：我的写法不美观，要处理两种特殊情况，一种是K等于链表元素个数返回头结点的情况，一种是K比链表元素还多返回NULL的情况
+class Solution {
+public:
+    ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {
+        if(pListHead == NULL){
+            return NULL;
+        }
+        ListNode* ret = pListHead;
+        ListNode* cur = pListHead;
+        unsigned int i = 1;
+        for(i = 0;i < k;i++){
+            if(cur->next != NULL){
+                cur = cur->next;
+            }
+            else if(i == k - 1){
+                return pListHead;
+            }
+            else{
+                return NULL;
+            }
+        }
+        while(cur != NULL){
+            cur = cur->next;
+            ret = ret->next;
+        }
+        return ret;
+    }
+};
