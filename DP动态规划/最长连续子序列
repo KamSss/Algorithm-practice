@@ -1,0 +1,28 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+
+int main() {
+	int n, len;
+	cin >> n >> len;
+	vector<int> array(n,0);
+	for (int i = 0; i < n; i++) {
+		cin >> array[i];		
+  }
+	int sum = array[0];		
+  int maxsum = array[0];
+  int size = 0;		
+   for (int i = 1; i < array.size(); i++) {
+		if (size < len && (sum > 0)) {				
+      sum += array[i];
+			size++;			}
+     else {
+			sum = array[i];
+		}
+		maxsum = (sum < maxsum) ? maxsum : sum;
+	}
+	cout << maxsum << endl;
+}
