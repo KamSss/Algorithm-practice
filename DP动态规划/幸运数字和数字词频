@@ -1,0 +1,65 @@
+网易互娱第一题 AC100
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+int main() {
+	int n = 0;
+	cin >> n;
+	//总共出现次数 计算幸运数字
+	vector<int> lucky(10, 0);
+	while (n--) {
+		//当前这组乘法的数字出现次数 并输出
+		vector<int> ret(10, 0);
+		int a = 0;
+		int b = 0;
+		cin >> a >> b;
+		int at = a;
+		int bt = b;
+		//1.计算a b本身的数字出现次数
+		while (at) {
+			ret[at % 10]++;
+			at = at / 10;
+		}
+		int bBit = 0;
+		while (bt) {
+			ret[bt % 10]++;
+			bt = bt / 10;
+			bBit++;
+		}
+		//2.计算乘法
+		at = a;
+		bt = b;
+		for (int i = 0; i < bBit; i++) {
+			int tmp = at * (bt % 10);
+			bt = bt / 10;
+			while (tmp) {
+				ret[tmp % 10]++;
+				tmp = tmp / 10;
+			}
+		}
+		//3.计算总结果的数字
+		int tmp = a * b;
+		while (tmp) {
+			ret[tmp % 10]++;
+			tmp = tmp / 10;
+		}
+		for (size_t x = 1; x < ret.size(); x++) {
+			cout << ret[x] << ' ';
+			lucky[x] += ret[x];
+		}
+		cout << endl;
+	}
+	//4.汇总幸运数字
+	int max = 0;
+	int maxret = 0;
+	for (size_t j = 1; j < lucky.size(); j++) {
+		if (lucky[j] > max) {
+			max = lucky[j];
+			maxret = j;
+		}
+	}
+	cout << maxret << endl;
+	return 0;
+}
