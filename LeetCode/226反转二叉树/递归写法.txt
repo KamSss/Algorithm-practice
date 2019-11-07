@@ -1,0 +1,13 @@
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(root == NULL)
+            return NULL;
+        //为什么这里需要临时节点
+        //因为root->left会被翻转，所以要记录反转前的left
+        TreeNode* tmp = root->left;
+        root->left = invertTree(root->right);
+        root->right = invertTree(tmp);
+        return root;
+    }
+};
